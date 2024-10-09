@@ -43,16 +43,16 @@ for (let i = 0; i < boardHeight; i++) {
 
 // tetrominos array
 const tetrominos = [
-    // {
-    //     letter: "A",
-    //     color: "chartreuse",
-    //     array: [
-    //         [0, 1, 1, 1],
-    //         [1, 1, 0, 1],
-    //         [1, 1, 1, 1],
-    //         [0, 1, 0, 1]
-    //     ]
-    // },
+    {
+        letter: "A",
+        color: "#A55355",
+        array: [
+            [0, 1, 1, 1],
+            [1, 1, 0, 1],
+            [1, 1, 1, 1],
+            [0, 1, 0, 1]
+        ]
+    },
     {
         letter: "I",
         color: "#8DCFE3",
