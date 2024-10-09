@@ -19,11 +19,11 @@ body {
     height: 700px;
     margin: auto;
     box-sizing: content-box;
-    text-align: center;
     font-size: 0;
 }
 
 .logo {
+    text-align: center;
     font-size: 70px;
     font-style: italic;
     font-family: PlaywriteDEGrund, monospace;
@@ -68,6 +68,7 @@ body {
 }
 
 .info-box {
+    text-align: center;
     box-sizing: border-box;
     font-size: 30px;
     font-family: PlaywriteDEGrund, monospace;
