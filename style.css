@@ -1,0 +1,88 @@
+/*@font-face {*/
+/*    font-family: PlaywriteDEGrund;*/
+/*    src: url("PlaywriteDEGrund.ttf");*/
+/*}*/
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.background {
+    background-color: antiquewhite;
+    height: 100vh;
+    display: flex;
+}
+
+.content {
+    width: 900px;
+    height: 700px;
+    margin: auto;
+    box-sizing: content-box;
+    text-align: center;
+    font-size: 0;
+}
+
+.logo {
+    font-size: 70px;
+    font-style: italic;
+    font-family: PlaywriteDEGrund, monospace;
+    margin: 0;
+}
+
+.border {
+    border: 2px solid black;
+}
+
+.content-block {
+    display: inline-block;
+}
+
+.canvas {
+    margin: 48px 23px;
+    width: 250px;
+    height: 500px;
+}
+
+.side {
+    margin: 48px 0;
+    width: 150px;
+    height: 500px;
+}
+
+.left {
+    margin-left: 123px;
+    margin-right: 23px;
+}
+
+.right {
+    margin-left: 23px;
+    margin-right: 123px;
+}
+
+.next-tetromino {
+    box-sizing: border-box;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+}
+
+.info-box {
+    box-sizing: border-box;
+    font-size: 30px;
+    font-family: PlaywriteDEGrund, monospace;
+    width: 150px;
+    position: absolute;
+}
+
+.info-text {
+    color: black;
+    margin: 0 auto 15px auto;
+}
+
+.label {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
