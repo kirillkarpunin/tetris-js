@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Tetris</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="background">
         <div class="content">
             <h1 class="logo">Tetris.</h1>
 
-            <div class="content-block side left">
-                <div class="info-box border">
-                    <p class="info-text label">SCORE:</p>
-                    <p id="score" class="info-text">0</p>
-                    <p class="info-text label">LEVEL:</p>
-                    <p id="level" class="info-text">1</p>
-                </div>
-            </div>
+            <form class="name-form">
+                <label for="player-name" class="player-name-label">Введите имя:</label>
+                <input id="player-name" class="player-name" type="text" placeholder="Имя игрока" maxlength="10"/>
+            </form>
 
-            <canvas width="250" height="500" id="canvas" class="content-block canvas border"></canvas>
-
-            <div class="content-block side right">
-                <canvas width="150" height="150" id="next-tetromino" class="next-tetromino border"></canvas>
-            </div>
+            <input id="play-button" class="play-button" type="button" value="Играть">
 
         </div>
     </div>
 
-    <script src="script.js"></script>
-
+    <script src="index.js"></script>
 </body>
 </html>

@@ -5,8 +5,20 @@ const ctx = canvas.getContext("2d");
 const nextTetrominoCanvas = document.getElementById("next-tetromino");
 const nextTetrominoCtx = nextTetrominoCanvas.getContext("2d")
 
+const content = document.getElementById("content");
+const gameOverScreen = document.getElementById("game-over-screen");
+
 const score = document.getElementById("score");
+const gameOverScore = document.getElementById("game-over-score");
 const level = document.getElementById("level");
+const name = document.getElementById("name");
+name.textContent = localStorage.getItem("current-player")
+
+const leaderboard = document.getElementById("leaderboard");
+const menuButton = document.getElementById("menu-button");
+
+const audioContext = new window.AudioContext();
+const volume = audioContext.createGain();
 
 const squareSize = 25;
 
@@ -43,16 +55,6 @@ for (let i = 0; i < boardHeight; i++) {
 
 // tetrominos array
 const tetrominos = [
-    {
-        letter: "A",
-        color: "#A55355",
-        array: [
-            [0, 1, 1, 1],
-            [1, 1, 0, 1],
-            [1, 1, 1, 1],
-            [0, 1, 0, 1]
-        ]
-    },
     {
         letter: "I",
         color: "#8DCFE3",
@@ -150,6 +152,9 @@ function createNewTetromino() {
 
     if (!isValidTetrominoPosition()) {
         isGameRunning = false;
+        setTimeout(gameOver, 1000);
+        playGameOverSound();
+        cancelAnimationFrame(animation);
     }
 
     drawNextTetromino();
@@ -202,6 +207,8 @@ function drawNextTetromino() {
 }
 
 function placeTetromino() {
+    playPlaceSound();
+
     for (let i = 0; i < tetromino.array.length; i++) {
         for (let j = 0; j < tetromino.array[0].length; j++) {
             if (tetromino.array[i][j]) {
@@ -215,6 +222,8 @@ function placeTetromino() {
 }
 
 function removeFormedLines() {
+    let soundPlayed = false;
+
     for (let k = boardHeight - 1; k >= 0; k--) {
         if (board[k].every(cell => !!cell)) {
             score.textContent = (parseInt(score.textContent) + 10).toString();
@@ -227,6 +236,11 @@ function removeFormedLines() {
             board[0].fill(0);
 
             k++;
+
+            if (!soundPlayed) {
+                playLinesRemovalSound()
+                soundPlayed = true;
+            }
         }
     }
 
@@ -250,7 +264,7 @@ function rotateTetrominoArray() {
     return tetromino.array.map((row, i) => row.map((val, j) => tetromino.array[len - 1 - j][i]));
 }
 
-document.addEventListener('keydown', function(event) {
+document.addEventListener("keydown", function(event) {
     if(!isGameRunning) {
         return;
     }
@@ -308,6 +322,10 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+menuButton.addEventListener("click", function () {
+    window.location.href = "index.html"
+})
+
 function update() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -332,6 +350,57 @@ function update() {
     level.textContent = Math.floor(score.textContent / pointsForNewLevel + 1).toString();
 }
 
+function playPlaceSound() {
+    const oscillator = audioContext.createOscillator();
+
+    oscillator.type = 'sawtooth';
+    volume.gain.value = 0.1
+
+    oscillator.frequency.setValueAtTime(73.42, audioContext.currentTime);
+
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.1);
+}
+
+function playLinesRemovalSound() {
+    const oscillator = audioContext.createOscillator();
+
+    oscillator.type = 'sawtooth';
+    volume.gain.value = 0.1
+
+    oscillator.frequency.setValueAtTime(164.81, audioContext.currentTime);
+    oscillator.frequency.setValueAtTime(174.61, audioContext.currentTime + 0.1);
+    oscillator.frequency.setValueAtTime(185.0, audioContext.currentTime + 0.2);
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.3);
+}
+
+function playGameOverSound() {
+    const oscillator = audioContext.createOscillator();
+
+    oscillator.type = 'sawtooth';
+    volume.gain.value = 0.1
+
+    oscillator.frequency.setValueAtTime(82.41, audioContext.currentTime);
+    oscillator.frequency.setValueAtTime(77.78, audioContext.currentTime + 0.1);
+    oscillator.frequency.setValueAtTime(87.31, audioContext.currentTime + 0.2);
+    oscillator.frequency.setValueAtTime(82.41, audioContext.currentTime + 0.3);
+
+    oscillator.connect(volume);
+    volume.connect(audioContext.destination);
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.4);
+}
+
 function loop(timestamp) {
     if (timeStart === undefined) {
         timeStart = timestamp;
@@ -345,13 +414,57 @@ function loop(timestamp) {
     }
 
     if (isGameRunning) {
-        requestAnimationFrame(loop);
+        animation = requestAnimationFrame(loop);
+    }
+}
+
+function gameOver() {
+    gameOverScore.textContent = score.textContent;
+    content.style.filter = "blur(3px)";
+    gameOverScreen.style.visibility = "visible"
+
+    let leaderboardArray = JSON.parse(localStorage.getItem("leaderboard"));
+
+    let newPlayer = true;
+    for (let i = 0; i < leaderboardArray.length; i++) {
+        if (leaderboardArray[i].lbName === name.textContent) {
+            leaderboardArray[i].lbScore = score.textContent;
+            newPlayer = false;
+            break;
+        }
+    }
+    if (newPlayer) {
+        leaderboardArray.push({
+            lbName: name.textContent,
+            lbScore: score.textContent
+        })
+    }
+
+    leaderboardArray.sort((a, b) => {
+        let aScore = parseInt(a.lbScore);
+        let bScore = parseInt(b.lbScore);
+
+        if (aScore === bScore) {
+            return 0;
+        } else {
+            return aScore > bScore ? -1 : 1;
+        }
+    })
+
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboardArray));
+
+
+    for (let i = 0; i < Math.min(leaderboardArray.length, 8); i++) {
+        let row = leaderboard.tBodies[0].insertRow();
+        row.insertCell().innerText = leaderboardArray[i].lbName;
+        row.insertCell().innerText = leaderboardArray[i].lbScore;
     }
 }
 
 function init() {
     createNewTetromino();
-    requestAnimationFrame(loop);
+    animation = requestAnimationFrame(loop);
 }
 
+let animation;
 init();

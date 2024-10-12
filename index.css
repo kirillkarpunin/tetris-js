@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.background {
+    background-color: antiquewhite;
+    height: 100vh;
+    display: flex;
+}
+
+.logo {
+    font-size: 70px;
+    font-style: italic;
+    font-family: monospace;
+    margin: 0;
+}
+
+.border {
+    border: 2px solid black;
+}
+
+.content {
+    width: 400px;
+    height: 400px;
+    align-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.name-form {
+    margin-top: 50px;
+}
+
+.player-name-label {
+    font-size: 30px;
+    font-family: monospace;
+}
+
+.player-name {
+    font-size: 30px;
+    font-family: monospace;
+    text-align: center;
+}
+.player-name::placeholder {
+    font-size: 30px;
+    font-family: monospace;
+    text-align: center;
+    font-style: italic;
+}
+
+.play-button {
+    margin-top: 30px;
+    font-size: 25px;
+    font-family: monospace;
+}

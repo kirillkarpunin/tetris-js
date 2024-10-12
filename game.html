@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div class="background">
+        <div id="content" class="content">
+            <h1 class="logo">Tetris.</h1>
+
+            <div class="content-block side left">
+                <div class="info-box border">
+                    <p class="info-text label">ИГРОК:</p>
+                    <p id="name" class="info-text"></p>
+                    <p class="info-text label">СЧЁТ:</p>
+                    <p id="score" class="info-text">0</p>
+                    <p class="info-text label">УРОВЕНЬ:</p>
+                    <p id="level" class="info-text">1</p>
+                </div>
+            </div>
+
+            <canvas width="250" height="500" id="canvas" class="content-block canvas border"></canvas>
+
+            <div class="content-block side right">
+                <canvas width="150" height="150" id="next-tetromino" class="next-tetromino border"></canvas>
+            </div>
+
+        </div>
+
+        <div id="game-over-screen" class="game-over-screen border">
+            <p class="info-text label">! ИГРА ОКОНЧЕНА !</p>
+            <p class="info-text label">СЧЁТ:</p>
+            <p id="game-over-score" class="info-text"></p>
+            <p class="info-text label">ТАБЛИЦА ЛИДЕРОВ</p>
+            <table id="leaderboard" class="leaderboard">
+                <tbody></tbody>
+            </table>
+            <input id="menu-button" class="menu-button" type="button" value="Назад">
+        </div>
+
+    </div>
+
+    <script src="game.js"></script>
+
+</body>
+</html>

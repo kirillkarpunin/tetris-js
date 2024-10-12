@@ -1,8 +1,3 @@
-/*@font-face {*/
-/*    font-family: PlaywriteDEGrund;*/
-/*    src: url("PlaywriteDEGrund.ttf");*/
-/*}*/
-
 body {
     margin: 0;
     box-sizing: border-box;
@@ -26,7 +21,7 @@ body {
     text-align: center;
     font-size: 70px;
     font-style: italic;
-    font-family: PlaywriteDEGrund, monospace;
+    font-family: monospace;
     margin: 0;
 }
 
@@ -70,20 +65,49 @@ body {
 .info-box {
     text-align: center;
     box-sizing: border-box;
-    font-size: 30px;
-    font-family: PlaywriteDEGrund, monospace;
+    font-family: monospace;
     width: 150px;
     position: absolute;
 }
 
 .info-text {
     color: black;
+    font-size: 25px;
     margin: 0 auto 15px auto;
 }
 
 .label {
     font-weight: bold;
+    font-size: 30px;
     margin-top: 15px;
     margin-bottom: 0;
 }
 
+.name-form {
+    margin: auto;
+}
+
+.game-over-screen {
+    background-color: antiquewhite;
+    width: 519px;
+    height: 630px;
+    position: absolute;
+    top: 50px;
+    left: 500px;
+    visibility: hidden;
+    text-align: center;
+    font-family: monospace;
+}
+
+.leaderboard {
+    text-align: left;
+    font-size: 25px;
+    margin: auto;
+    border-spacing: 10px;
+}
+
+.menu-button {
+    margin-top: 30px;
+    font-size: 25px;
+    font-family: monospace;
+}
